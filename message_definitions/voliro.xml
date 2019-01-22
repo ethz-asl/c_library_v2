@@ -9,12 +9,36 @@
             <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
             <field type="uint8_t" name="coordinate_frame" enum="MAV_FRAME">Valid options are: MAV_FRAME_LOCAL_NED = 1, MAV_FRAME_LOCAL_OFFSET_NED = 7, MAV_FRAME_BODY_NED = 8, MAV_FRAME_BODY_OFFSET_NED = 9</field>
             <field type="uint16_t" name="type_mask" enum="POSITION_TARGET_TYPEMASK" display="bitmask">Bitmap to indicate which dimensions should be ignored by the vehicle.</field>
-            <field type="float" name="Fx" units="N">X force in NED frame</field>
-            <field type="float" name="Fy" units="N">Y force in NED frame</field>
-            <field type="float" name="Fz" units="N">Z force in NED frame</field>
-            <field type="float" name="Mx" units="Nm">X torque in NED frame</field>
-            <field type="float" name="My" units="Nm">Y torque in NED frame</field>
-            <field type="float" name="Mz" units="Nm">Z torque in NED frame</field>
+            <field type="float" name="acc_x" units="m/s/s">X acceleration in NED frame</field>
+            <field type="float" name="acc_y" units="m/s/s">Y acceleration in NED frame</field>
+            <field type="float" name="acc_z" units="m/s/s">Z acceleration in NED frame</field>
+            <field type="float" name="acc_roll" units="rad/s/s">roll acceleration in NED frame</field>
+            <field type="float" name="acc_pitch" units="rad/s/s">pitch acceleration in NED frame</field>
+            <field type="float" name="acc_yaw" units="rad/s/s">yaw acceleration in NED frame</field>
+      </message>
+      <message id="95" name="SET_ATTITUDE_THRUST_VECTOR_TARGET_NED">
+            <description>For overactuated vehicles. Contains acceleration, attitude, angular speed, and angular acceleration.</description>
+            <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
+            <field type="uint8_t" name="coordinate_frame" enum="MAV_FRAME">Valid options are: MAV_FRAME_LOCAL_NED = 1, MAV_FRAME_LOCAL_OFFSET_NED = 7, MAV_FRAME_BODY_NED = 8, MAV_FRAME_BODY_OFFSET_NED = 9</field>
+            <field type="uint16_t" name="type_mask" enum="POSITION_TARGET_TYPEMASK" display="bitmask">Bitmap to indicate which dimensions should be ignored by the vehicle.</field>
+            <field type="float" name="acc_x" units="m/s/s">X acceleration in NED frame</field>
+            <field type="float" name="acc_y" units="m/s/s">Y acceleration in NED frame</field>
+            <field type="float" name="acc_z" units="m/s/s">Z acceleration in NED frame</field>
+            <field type="float" name="q_w" units="1">Quaternion w</field>
+            <field type="float" name="q_x" units="1">Quaternion x</field>
+            <field type="float" name="q_y" units="1">Quaternion y</field>
+            <field type="float" name="q_z" units="1">Quaternion z</field>
+            <field type="float" name="roll" units="rad/s">roll in NED frame</field>
+            <field type="float" name="pitch" units="rad/s">pitch in NED frame</field>
+            <field type="float" name="yaw" units="rad/s">yaw in NED frame</field>
+            <field type="float" name="acc_roll" units="rad/s/s">roll acceleration in NED frame</field>
+            <field type="float" name="acc_pitch" units="rad/s/s">pitch acceleration in NED frame</field>
+            <field type="float" name="acc_yaw" units="rad/s/s">yaw acceleration in NED frame</field>
+      </message>
+      <message id="96" name="SET_ROTOR_TILT_TARGET">
+            <description>For overactuated vehicles. Sets reference for rotor tilt angles.</description>
+            <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
+            <field type="float[6]" name="alpha" units="rad">Reference rotor tilt angle.</field>
       </message>
   </messages>
 </mavlink>
