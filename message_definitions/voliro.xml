@@ -40,7 +40,7 @@
             <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
             <field type="float[6]" name="alpha" units="rad">Reference rotor tilt angle.</field>
       </message>
-      <message id="96" name="SET_ALLOCATION_MATRIX">
+      <message id="97" name="SET_ALLOCATION_MATRIX">
             <description>For overactuated vehicles. Sets a 6x6 allocation matrix.</description>
             <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
             <field type="float[36]" name="alpha" units="rad">Reference rotor tilt angle.</field>
