@@ -229,7 +229,7 @@ static void mavlink_test_set_allocation_matrix(uint8_t system_id, uint8_t compon
         memset(&packet1, 0, sizeof(packet1));
         packet1.time_boot_ms = packet_in.time_boot_ms;
         
-        mav_array_memcpy(packet1.alpha, packet_in.alpha, sizeof(float)*36);
+        mav_array_memcpy(packet1.allocation_matrix, packet_in.allocation_matrix, sizeof(float)*36);
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
         if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
@@ -243,12 +243,12 @@ static void mavlink_test_set_allocation_matrix(uint8_t system_id, uint8_t compon
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_set_allocation_matrix_pack(system_id, component_id, &msg , packet1.time_boot_ms , packet1.alpha );
+    mavlink_msg_set_allocation_matrix_pack(system_id, component_id, &msg , packet1.time_boot_ms , packet1.allocation_matrix );
     mavlink_msg_set_allocation_matrix_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_set_allocation_matrix_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.time_boot_ms , packet1.alpha );
+    mavlink_msg_set_allocation_matrix_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.time_boot_ms , packet1.allocation_matrix );
     mavlink_msg_set_allocation_matrix_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -261,7 +261,7 @@ static void mavlink_test_set_allocation_matrix(uint8_t system_id, uint8_t compon
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_set_allocation_matrix_send(MAVLINK_COMM_1 , packet1.time_boot_ms , packet1.alpha );
+    mavlink_msg_set_allocation_matrix_send(MAVLINK_COMM_1 , packet1.time_boot_ms , packet1.allocation_matrix );
     mavlink_msg_set_allocation_matrix_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }

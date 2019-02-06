@@ -6,7 +6,7 @@
 MAVPACKED(
 typedef struct __mavlink_set_allocation_matrix_t {
  uint32_t time_boot_ms; /*< [ms] Timestamp (time since system boot).*/
- float alpha[36]; /*< [rad] Reference rotor tilt angle.*/
+ float allocation_matrix[36]; /*< [rad] Allocation matrix expressed in a vector.*/
 }) mavlink_set_allocation_matrix_t;
 
 #define MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN 148
@@ -14,10 +14,10 @@ typedef struct __mavlink_set_allocation_matrix_t {
 #define MAVLINK_MSG_ID_97_LEN 148
 #define MAVLINK_MSG_ID_97_MIN_LEN 148
 
-#define MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_CRC 108
-#define MAVLINK_MSG_ID_97_CRC 108
+#define MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_CRC 115
+#define MAVLINK_MSG_ID_97_CRC 115
 
-#define MAVLINK_MSG_SET_ALLOCATION_MATRIX_FIELD_ALPHA_LEN 36
+#define MAVLINK_MSG_SET_ALLOCATION_MATRIX_FIELD_ALLOCATION_MATRIX_LEN 36
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_SET_ALLOCATION_MATRIX { \
@@ -25,7 +25,7 @@ typedef struct __mavlink_set_allocation_matrix_t {
     "SET_ALLOCATION_MATRIX", \
     2, \
     {  { "time_boot_ms", NULL, MAVLINK_TYPE_UINT32_T, 0, 0, offsetof(mavlink_set_allocation_matrix_t, time_boot_ms) }, \
-         { "alpha", NULL, MAVLINK_TYPE_FLOAT, 36, 4, offsetof(mavlink_set_allocation_matrix_t, alpha) }, \
+         { "allocation_matrix", NULL, MAVLINK_TYPE_FLOAT, 36, 4, offsetof(mavlink_set_allocation_matrix_t, allocation_matrix) }, \
          } \
 }
 #else
@@ -33,7 +33,7 @@ typedef struct __mavlink_set_allocation_matrix_t {
     "SET_ALLOCATION_MATRIX", \
     2, \
     {  { "time_boot_ms", NULL, MAVLINK_TYPE_UINT32_T, 0, 0, offsetof(mavlink_set_allocation_matrix_t, time_boot_ms) }, \
-         { "alpha", NULL, MAVLINK_TYPE_FLOAT, 36, 4, offsetof(mavlink_set_allocation_matrix_t, alpha) }, \
+         { "allocation_matrix", NULL, MAVLINK_TYPE_FLOAT, 36, 4, offsetof(mavlink_set_allocation_matrix_t, allocation_matrix) }, \
          } \
 }
 #endif
@@ -45,21 +45,21 @@ typedef struct __mavlink_set_allocation_matrix_t {
  * @param msg The MAVLink message to compress the data into
  *
  * @param time_boot_ms [ms] Timestamp (time since system boot).
- * @param alpha [rad] Reference rotor tilt angle.
+ * @param allocation_matrix [rad] Allocation matrix expressed in a vector.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_set_allocation_matrix_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint32_t time_boot_ms, const float *alpha)
+                               uint32_t time_boot_ms, const float *allocation_matrix)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN];
     _mav_put_uint32_t(buf, 0, time_boot_ms);
-    _mav_put_float_array(buf, 4, alpha, 36);
+    _mav_put_float_array(buf, 4, allocation_matrix, 36);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN);
 #else
     mavlink_set_allocation_matrix_t packet;
     packet.time_boot_ms = time_boot_ms;
-    mav_array_memcpy(packet.alpha, alpha, sizeof(float)*36);
+    mav_array_memcpy(packet.allocation_matrix, allocation_matrix, sizeof(float)*36);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN);
 #endif
 
@@ -74,22 +74,22 @@ static inline uint16_t mavlink_msg_set_allocation_matrix_pack(uint8_t system_id,
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param time_boot_ms [ms] Timestamp (time since system boot).
- * @param alpha [rad] Reference rotor tilt angle.
+ * @param allocation_matrix [rad] Allocation matrix expressed in a vector.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_set_allocation_matrix_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint32_t time_boot_ms,const float *alpha)
+                                   uint32_t time_boot_ms,const float *allocation_matrix)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN];
     _mav_put_uint32_t(buf, 0, time_boot_ms);
-    _mav_put_float_array(buf, 4, alpha, 36);
+    _mav_put_float_array(buf, 4, allocation_matrix, 36);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN);
 #else
     mavlink_set_allocation_matrix_t packet;
     packet.time_boot_ms = time_boot_ms;
-    mav_array_memcpy(packet.alpha, alpha, sizeof(float)*36);
+    mav_array_memcpy(packet.allocation_matrix, allocation_matrix, sizeof(float)*36);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN);
 #endif
 
@@ -107,7 +107,7 @@ static inline uint16_t mavlink_msg_set_allocation_matrix_pack_chan(uint8_t syste
  */
 static inline uint16_t mavlink_msg_set_allocation_matrix_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_set_allocation_matrix_t* set_allocation_matrix)
 {
-    return mavlink_msg_set_allocation_matrix_pack(system_id, component_id, msg, set_allocation_matrix->time_boot_ms, set_allocation_matrix->alpha);
+    return mavlink_msg_set_allocation_matrix_pack(system_id, component_id, msg, set_allocation_matrix->time_boot_ms, set_allocation_matrix->allocation_matrix);
 }
 
 /**
@@ -121,7 +121,7 @@ static inline uint16_t mavlink_msg_set_allocation_matrix_encode(uint8_t system_i
  */
 static inline uint16_t mavlink_msg_set_allocation_matrix_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_set_allocation_matrix_t* set_allocation_matrix)
 {
-    return mavlink_msg_set_allocation_matrix_pack_chan(system_id, component_id, chan, msg, set_allocation_matrix->time_boot_ms, set_allocation_matrix->alpha);
+    return mavlink_msg_set_allocation_matrix_pack_chan(system_id, component_id, chan, msg, set_allocation_matrix->time_boot_ms, set_allocation_matrix->allocation_matrix);
 }
 
 /**
@@ -129,21 +129,21 @@ static inline uint16_t mavlink_msg_set_allocation_matrix_encode_chan(uint8_t sys
  * @param chan MAVLink channel to send the message
  *
  * @param time_boot_ms [ms] Timestamp (time since system boot).
- * @param alpha [rad] Reference rotor tilt angle.
+ * @param allocation_matrix [rad] Allocation matrix expressed in a vector.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_set_allocation_matrix_send(mavlink_channel_t chan, uint32_t time_boot_ms, const float *alpha)
+static inline void mavlink_msg_set_allocation_matrix_send(mavlink_channel_t chan, uint32_t time_boot_ms, const float *allocation_matrix)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN];
     _mav_put_uint32_t(buf, 0, time_boot_ms);
-    _mav_put_float_array(buf, 4, alpha, 36);
+    _mav_put_float_array(buf, 4, allocation_matrix, 36);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX, buf, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_MIN_LEN, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_CRC);
 #else
     mavlink_set_allocation_matrix_t packet;
     packet.time_boot_ms = time_boot_ms;
-    mav_array_memcpy(packet.alpha, alpha, sizeof(float)*36);
+    mav_array_memcpy(packet.allocation_matrix, allocation_matrix, sizeof(float)*36);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX, (const char *)&packet, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_MIN_LEN, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_CRC);
 #endif
 }
@@ -156,7 +156,7 @@ static inline void mavlink_msg_set_allocation_matrix_send(mavlink_channel_t chan
 static inline void mavlink_msg_set_allocation_matrix_send_struct(mavlink_channel_t chan, const mavlink_set_allocation_matrix_t* set_allocation_matrix)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_set_allocation_matrix_send(chan, set_allocation_matrix->time_boot_ms, set_allocation_matrix->alpha);
+    mavlink_msg_set_allocation_matrix_send(chan, set_allocation_matrix->time_boot_ms, set_allocation_matrix->allocation_matrix);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX, (const char *)set_allocation_matrix, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_MIN_LEN, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_CRC);
 #endif
@@ -170,17 +170,17 @@ static inline void mavlink_msg_set_allocation_matrix_send_struct(mavlink_channel
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_set_allocation_matrix_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t time_boot_ms, const float *alpha)
+static inline void mavlink_msg_set_allocation_matrix_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t time_boot_ms, const float *allocation_matrix)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
     _mav_put_uint32_t(buf, 0, time_boot_ms);
-    _mav_put_float_array(buf, 4, alpha, 36);
+    _mav_put_float_array(buf, 4, allocation_matrix, 36);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX, buf, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_MIN_LEN, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_CRC);
 #else
     mavlink_set_allocation_matrix_t *packet = (mavlink_set_allocation_matrix_t *)msgbuf;
     packet->time_boot_ms = time_boot_ms;
-    mav_array_memcpy(packet->alpha, alpha, sizeof(float)*36);
+    mav_array_memcpy(packet->allocation_matrix, allocation_matrix, sizeof(float)*36);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX, (const char *)packet, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_MIN_LEN, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_CRC);
 #endif
 }
@@ -202,13 +202,13 @@ static inline uint32_t mavlink_msg_set_allocation_matrix_get_time_boot_ms(const 
 }
 
 /**
- * @brief Get field alpha from set_allocation_matrix message
+ * @brief Get field allocation_matrix from set_allocation_matrix message
  *
- * @return [rad] Reference rotor tilt angle.
+ * @return [rad] Allocation matrix expressed in a vector.
  */
-static inline uint16_t mavlink_msg_set_allocation_matrix_get_alpha(const mavlink_message_t* msg, float *alpha)
+static inline uint16_t mavlink_msg_set_allocation_matrix_get_allocation_matrix(const mavlink_message_t* msg, float *allocation_matrix)
 {
-    return _MAV_RETURN_float_array(msg, alpha, 36,  4);
+    return _MAV_RETURN_float_array(msg, allocation_matrix, 36,  4);
 }
 
 /**
@@ -221,7 +221,7 @@ static inline void mavlink_msg_set_allocation_matrix_decode(const mavlink_messag
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     set_allocation_matrix->time_boot_ms = mavlink_msg_set_allocation_matrix_get_time_boot_ms(msg);
-    mavlink_msg_set_allocation_matrix_get_alpha(msg, set_allocation_matrix->alpha);
+    mavlink_msg_set_allocation_matrix_get_allocation_matrix(msg, set_allocation_matrix->allocation_matrix);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN? msg->len : MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN;
         memset(set_allocation_matrix, 0, MAVLINK_MSG_ID_SET_ALLOCATION_MATRIX_LEN);
