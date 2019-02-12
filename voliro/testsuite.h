@@ -223,13 +223,14 @@ static void mavlink_test_set_allocation_matrix(uint8_t system_id, uint8_t compon
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_set_allocation_matrix_t packet_in = {
-        963497464,{ 45.0, 46.0, 47.0, 48.0, 49.0, 50.0, 51.0, 52.0, 53.0, 54.0, 55.0, 56.0, 57.0, 58.0, 59.0, 60.0, 61.0, 62.0, 63.0, 64.0, 65.0, 66.0, 67.0, 68.0, 69.0, 70.0, 71.0, 72.0, 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0 }
+        963497464,{ 45.0, 46.0, 47.0, 48.0, 49.0, 50.0, 51.0, 52.0, 53.0, 54.0, 55.0, 56.0, 57.0, 58.0, 59.0, 60.0, 61.0, 62.0, 63.0, 64.0, 65.0, 66.0, 67.0, 68.0, 69.0, 70.0, 71.0, 72.0, 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0 },{ 1053.0, 1054.0, 1055.0, 1056.0, 1057.0, 1058.0 }
     };
     mavlink_set_allocation_matrix_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
         packet1.time_boot_ms = packet_in.time_boot_ms;
         
         mav_array_memcpy(packet1.allocation_matrix, packet_in.allocation_matrix, sizeof(float)*36);
+        mav_array_memcpy(packet1.tilt_angles, packet_in.tilt_angles, sizeof(float)*6);
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
         if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
@@ -243,12 +244,12 @@ static void mavlink_test_set_allocation_matrix(uint8_t system_id, uint8_t compon
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_set_allocation_matrix_pack(system_id, component_id, &msg , packet1.time_boot_ms , packet1.allocation_matrix );
+    mavlink_msg_set_allocation_matrix_pack(system_id, component_id, &msg , packet1.time_boot_ms , packet1.allocation_matrix , packet1.tilt_angles );
     mavlink_msg_set_allocation_matrix_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_set_allocation_matrix_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.time_boot_ms , packet1.allocation_matrix );
+    mavlink_msg_set_allocation_matrix_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.time_boot_ms , packet1.allocation_matrix , packet1.tilt_angles );
     mavlink_msg_set_allocation_matrix_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -261,7 +262,7 @@ static void mavlink_test_set_allocation_matrix(uint8_t system_id, uint8_t compon
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_set_allocation_matrix_send(MAVLINK_COMM_1 , packet1.time_boot_ms , packet1.allocation_matrix );
+    mavlink_msg_set_allocation_matrix_send(MAVLINK_COMM_1 , packet1.time_boot_ms , packet1.allocation_matrix , packet1.tilt_angles );
     mavlink_msg_set_allocation_matrix_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }

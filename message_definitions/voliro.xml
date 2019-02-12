@@ -43,7 +43,8 @@
       <message id="97" name="SET_ALLOCATION_MATRIX">
             <description>For overactuated vehicles. Sets a 6x6 allocation matrix.</description>
             <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
-            <field type="float[36]" name="allocation_matrix" units="rad">Allocation matrix expressed in a vector.</field>
+            <field type="float[36]" name="allocation_matrix" units="1">Allocation matrix expressed in a vector.</field>
+            <field type="float[6]" name="tilt_angles" units="rad">Tilt angles.</field>
       </message>
   </messages>
 </mavlink>
