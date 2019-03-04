@@ -111,9 +111,9 @@ static void mavlink_test_set_attitude_thrust_vector_target_ned(uint8_t system_id
         packet1.q_x = packet_in.q_x;
         packet1.q_y = packet_in.q_y;
         packet1.q_z = packet_in.q_z;
-        packet1.roll = packet_in.roll;
-        packet1.pitch = packet_in.pitch;
-        packet1.yaw = packet_in.yaw;
+        packet1.p = packet_in.p;
+        packet1.q = packet_in.q;
+        packet1.r = packet_in.r;
         packet1.acc_roll = packet_in.acc_roll;
         packet1.acc_pitch = packet_in.acc_pitch;
         packet1.acc_yaw = packet_in.acc_yaw;
@@ -133,12 +133,12 @@ static void mavlink_test_set_attitude_thrust_vector_target_ned(uint8_t system_id
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_set_attitude_thrust_vector_target_ned_pack(system_id, component_id, &msg , packet1.time_boot_ms , packet1.coordinate_frame , packet1.type_mask , packet1.acc_x , packet1.acc_y , packet1.acc_z , packet1.q_w , packet1.q_x , packet1.q_y , packet1.q_z , packet1.roll , packet1.pitch , packet1.yaw , packet1.acc_roll , packet1.acc_pitch , packet1.acc_yaw );
+    mavlink_msg_set_attitude_thrust_vector_target_ned_pack(system_id, component_id, &msg , packet1.time_boot_ms , packet1.coordinate_frame , packet1.type_mask , packet1.acc_x , packet1.acc_y , packet1.acc_z , packet1.q_w , packet1.q_x , packet1.q_y , packet1.q_z , packet1.p , packet1.q , packet1.r , packet1.acc_roll , packet1.acc_pitch , packet1.acc_yaw );
     mavlink_msg_set_attitude_thrust_vector_target_ned_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_set_attitude_thrust_vector_target_ned_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.time_boot_ms , packet1.coordinate_frame , packet1.type_mask , packet1.acc_x , packet1.acc_y , packet1.acc_z , packet1.q_w , packet1.q_x , packet1.q_y , packet1.q_z , packet1.roll , packet1.pitch , packet1.yaw , packet1.acc_roll , packet1.acc_pitch , packet1.acc_yaw );
+    mavlink_msg_set_attitude_thrust_vector_target_ned_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.time_boot_ms , packet1.coordinate_frame , packet1.type_mask , packet1.acc_x , packet1.acc_y , packet1.acc_z , packet1.q_w , packet1.q_x , packet1.q_y , packet1.q_z , packet1.p , packet1.q , packet1.r , packet1.acc_roll , packet1.acc_pitch , packet1.acc_yaw );
     mavlink_msg_set_attitude_thrust_vector_target_ned_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -151,7 +151,7 @@ static void mavlink_test_set_attitude_thrust_vector_target_ned(uint8_t system_id
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_set_attitude_thrust_vector_target_ned_send(MAVLINK_COMM_1 , packet1.time_boot_ms , packet1.coordinate_frame , packet1.type_mask , packet1.acc_x , packet1.acc_y , packet1.acc_z , packet1.q_w , packet1.q_x , packet1.q_y , packet1.q_z , packet1.roll , packet1.pitch , packet1.yaw , packet1.acc_roll , packet1.acc_pitch , packet1.acc_yaw );
+    mavlink_msg_set_attitude_thrust_vector_target_ned_send(MAVLINK_COMM_1 , packet1.time_boot_ms , packet1.coordinate_frame , packet1.type_mask , packet1.acc_x , packet1.acc_y , packet1.acc_z , packet1.q_w , packet1.q_x , packet1.q_y , packet1.q_z , packet1.p , packet1.q , packet1.r , packet1.acc_roll , packet1.acc_pitch , packet1.acc_yaw );
     mavlink_msg_set_attitude_thrust_vector_target_ned_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }

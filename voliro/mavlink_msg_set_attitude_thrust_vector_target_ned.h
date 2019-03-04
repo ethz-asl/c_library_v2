@@ -13,9 +13,9 @@ typedef struct __mavlink_set_attitude_thrust_vector_target_ned_t {
  float q_x; /*< [1] Quaternion x*/
  float q_y; /*< [1] Quaternion y*/
  float q_z; /*< [1] Quaternion z*/
- float roll; /*< [rad/s] roll in NED frame*/
- float pitch; /*< [rad/s] pitch in NED frame*/
- float yaw; /*< [rad/s] yaw in NED frame*/
+ float p; /*< [rad/s] Angular velocity p*/
+ float q; /*< [rad/s] Angular velocity q*/
+ float r; /*< [rad/s] Angular velocity r*/
  float acc_roll; /*< [rad/s/s] roll acceleration in NED frame*/
  float acc_pitch; /*< [rad/s/s] pitch acceleration in NED frame*/
  float acc_yaw; /*< [rad/s/s] yaw acceleration in NED frame*/
@@ -28,8 +28,8 @@ typedef struct __mavlink_set_attitude_thrust_vector_target_ned_t {
 #define MAVLINK_MSG_ID_95_LEN 59
 #define MAVLINK_MSG_ID_95_MIN_LEN 59
 
-#define MAVLINK_MSG_ID_SET_ATTITUDE_THRUST_VECTOR_TARGET_NED_CRC 170
-#define MAVLINK_MSG_ID_95_CRC 170
+#define MAVLINK_MSG_ID_SET_ATTITUDE_THRUST_VECTOR_TARGET_NED_CRC 203
+#define MAVLINK_MSG_ID_95_CRC 203
 
 
 
@@ -48,9 +48,9 @@ typedef struct __mavlink_set_attitude_thrust_vector_target_ned_t {
          { "q_x", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, q_x) }, \
          { "q_y", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, q_y) }, \
          { "q_z", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, q_z) }, \
-         { "roll", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, roll) }, \
-         { "pitch", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, pitch) }, \
-         { "yaw", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, yaw) }, \
+         { "p", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, p) }, \
+         { "q", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, q) }, \
+         { "r", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, r) }, \
          { "acc_roll", NULL, MAVLINK_TYPE_FLOAT, 0, 44, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, acc_roll) }, \
          { "acc_pitch", NULL, MAVLINK_TYPE_FLOAT, 0, 48, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, acc_pitch) }, \
          { "acc_yaw", NULL, MAVLINK_TYPE_FLOAT, 0, 52, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, acc_yaw) }, \
@@ -70,9 +70,9 @@ typedef struct __mavlink_set_attitude_thrust_vector_target_ned_t {
          { "q_x", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, q_x) }, \
          { "q_y", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, q_y) }, \
          { "q_z", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, q_z) }, \
-         { "roll", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, roll) }, \
-         { "pitch", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, pitch) }, \
-         { "yaw", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, yaw) }, \
+         { "p", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, p) }, \
+         { "q", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, q) }, \
+         { "r", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, r) }, \
          { "acc_roll", NULL, MAVLINK_TYPE_FLOAT, 0, 44, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, acc_roll) }, \
          { "acc_pitch", NULL, MAVLINK_TYPE_FLOAT, 0, 48, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, acc_pitch) }, \
          { "acc_yaw", NULL, MAVLINK_TYPE_FLOAT, 0, 52, offsetof(mavlink_set_attitude_thrust_vector_target_ned_t, acc_yaw) }, \
@@ -96,16 +96,16 @@ typedef struct __mavlink_set_attitude_thrust_vector_target_ned_t {
  * @param q_x [1] Quaternion x
  * @param q_y [1] Quaternion y
  * @param q_z [1] Quaternion z
- * @param roll [rad/s] roll in NED frame
- * @param pitch [rad/s] pitch in NED frame
- * @param yaw [rad/s] yaw in NED frame
+ * @param p [rad/s] Angular velocity p
+ * @param q [rad/s] Angular velocity q
+ * @param r [rad/s] Angular velocity r
  * @param acc_roll [rad/s/s] roll acceleration in NED frame
  * @param acc_pitch [rad/s/s] pitch acceleration in NED frame
  * @param acc_yaw [rad/s/s] yaw acceleration in NED frame
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_set_attitude_thrust_vector_target_ned_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint32_t time_boot_ms, uint8_t coordinate_frame, uint16_t type_mask, float acc_x, float acc_y, float acc_z, float q_w, float q_x, float q_y, float q_z, float roll, float pitch, float yaw, float acc_roll, float acc_pitch, float acc_yaw)
+                               uint32_t time_boot_ms, uint8_t coordinate_frame, uint16_t type_mask, float acc_x, float acc_y, float acc_z, float q_w, float q_x, float q_y, float q_z, float p, float q, float r, float acc_roll, float acc_pitch, float acc_yaw)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_ATTITUDE_THRUST_VECTOR_TARGET_NED_LEN];
@@ -117,9 +117,9 @@ static inline uint16_t mavlink_msg_set_attitude_thrust_vector_target_ned_pack(ui
     _mav_put_float(buf, 20, q_x);
     _mav_put_float(buf, 24, q_y);
     _mav_put_float(buf, 28, q_z);
-    _mav_put_float(buf, 32, roll);
-    _mav_put_float(buf, 36, pitch);
-    _mav_put_float(buf, 40, yaw);
+    _mav_put_float(buf, 32, p);
+    _mav_put_float(buf, 36, q);
+    _mav_put_float(buf, 40, r);
     _mav_put_float(buf, 44, acc_roll);
     _mav_put_float(buf, 48, acc_pitch);
     _mav_put_float(buf, 52, acc_yaw);
@@ -137,9 +137,9 @@ static inline uint16_t mavlink_msg_set_attitude_thrust_vector_target_ned_pack(ui
     packet.q_x = q_x;
     packet.q_y = q_y;
     packet.q_z = q_z;
-    packet.roll = roll;
-    packet.pitch = pitch;
-    packet.yaw = yaw;
+    packet.p = p;
+    packet.q = q;
+    packet.r = r;
     packet.acc_roll = acc_roll;
     packet.acc_pitch = acc_pitch;
     packet.acc_yaw = acc_yaw;
@@ -169,9 +169,9 @@ static inline uint16_t mavlink_msg_set_attitude_thrust_vector_target_ned_pack(ui
  * @param q_x [1] Quaternion x
  * @param q_y [1] Quaternion y
  * @param q_z [1] Quaternion z
- * @param roll [rad/s] roll in NED frame
- * @param pitch [rad/s] pitch in NED frame
- * @param yaw [rad/s] yaw in NED frame
+ * @param p [rad/s] Angular velocity p
+ * @param q [rad/s] Angular velocity q
+ * @param r [rad/s] Angular velocity r
  * @param acc_roll [rad/s/s] roll acceleration in NED frame
  * @param acc_pitch [rad/s/s] pitch acceleration in NED frame
  * @param acc_yaw [rad/s/s] yaw acceleration in NED frame
@@ -179,7 +179,7 @@ static inline uint16_t mavlink_msg_set_attitude_thrust_vector_target_ned_pack(ui
  */
 static inline uint16_t mavlink_msg_set_attitude_thrust_vector_target_ned_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint32_t time_boot_ms,uint8_t coordinate_frame,uint16_t type_mask,float acc_x,float acc_y,float acc_z,float q_w,float q_x,float q_y,float q_z,float roll,float pitch,float yaw,float acc_roll,float acc_pitch,float acc_yaw)
+                                   uint32_t time_boot_ms,uint8_t coordinate_frame,uint16_t type_mask,float acc_x,float acc_y,float acc_z,float q_w,float q_x,float q_y,float q_z,float p,float q,float r,float acc_roll,float acc_pitch,float acc_yaw)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_ATTITUDE_THRUST_VECTOR_TARGET_NED_LEN];
@@ -191,9 +191,9 @@ static inline uint16_t mavlink_msg_set_attitude_thrust_vector_target_ned_pack_ch
     _mav_put_float(buf, 20, q_x);
     _mav_put_float(buf, 24, q_y);
     _mav_put_float(buf, 28, q_z);
-    _mav_put_float(buf, 32, roll);
-    _mav_put_float(buf, 36, pitch);
-    _mav_put_float(buf, 40, yaw);
+    _mav_put_float(buf, 32, p);
+    _mav_put_float(buf, 36, q);
+    _mav_put_float(buf, 40, r);
     _mav_put_float(buf, 44, acc_roll);
     _mav_put_float(buf, 48, acc_pitch);
     _mav_put_float(buf, 52, acc_yaw);
@@ -211,9 +211,9 @@ static inline uint16_t mavlink_msg_set_attitude_thrust_vector_target_ned_pack_ch
     packet.q_x = q_x;
     packet.q_y = q_y;
     packet.q_z = q_z;
-    packet.roll = roll;
-    packet.pitch = pitch;
-    packet.yaw = yaw;
+    packet.p = p;
+    packet.q = q;
+    packet.r = r;
     packet.acc_roll = acc_roll;
     packet.acc_pitch = acc_pitch;
     packet.acc_yaw = acc_yaw;
@@ -237,7 +237,7 @@ static inline uint16_t mavlink_msg_set_attitude_thrust_vector_target_ned_pack_ch
  */
 static inline uint16_t mavlink_msg_set_attitude_thrust_vector_target_ned_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_set_attitude_thrust_vector_target_ned_t* set_attitude_thrust_vector_target_ned)
 {
-    return mavlink_msg_set_attitude_thrust_vector_target_ned_pack(system_id, component_id, msg, set_attitude_thrust_vector_target_ned->time_boot_ms, set_attitude_thrust_vector_target_ned->coordinate_frame, set_attitude_thrust_vector_target_ned->type_mask, set_attitude_thrust_vector_target_ned->acc_x, set_attitude_thrust_vector_target_ned->acc_y, set_attitude_thrust_vector_target_ned->acc_z, set_attitude_thrust_vector_target_ned->q_w, set_attitude_thrust_vector_target_ned->q_x, set_attitude_thrust_vector_target_ned->q_y, set_attitude_thrust_vector_target_ned->q_z, set_attitude_thrust_vector_target_ned->roll, set_attitude_thrust_vector_target_ned->pitch, set_attitude_thrust_vector_target_ned->yaw, set_attitude_thrust_vector_target_ned->acc_roll, set_attitude_thrust_vector_target_ned->acc_pitch, set_attitude_thrust_vector_target_ned->acc_yaw);
+    return mavlink_msg_set_attitude_thrust_vector_target_ned_pack(system_id, component_id, msg, set_attitude_thrust_vector_target_ned->time_boot_ms, set_attitude_thrust_vector_target_ned->coordinate_frame, set_attitude_thrust_vector_target_ned->type_mask, set_attitude_thrust_vector_target_ned->acc_x, set_attitude_thrust_vector_target_ned->acc_y, set_attitude_thrust_vector_target_ned->acc_z, set_attitude_thrust_vector_target_ned->q_w, set_attitude_thrust_vector_target_ned->q_x, set_attitude_thrust_vector_target_ned->q_y, set_attitude_thrust_vector_target_ned->q_z, set_attitude_thrust_vector_target_ned->p, set_attitude_thrust_vector_target_ned->q, set_attitude_thrust_vector_target_ned->r, set_attitude_thrust_vector_target_ned->acc_roll, set_attitude_thrust_vector_target_ned->acc_pitch, set_attitude_thrust_vector_target_ned->acc_yaw);
 }
 
 /**
@@ -251,7 +251,7 @@ static inline uint16_t mavlink_msg_set_attitude_thrust_vector_target_ned_encode(
  */
 static inline uint16_t mavlink_msg_set_attitude_thrust_vector_target_ned_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_set_attitude_thrust_vector_target_ned_t* set_attitude_thrust_vector_target_ned)
 {
-    return mavlink_msg_set_attitude_thrust_vector_target_ned_pack_chan(system_id, component_id, chan, msg, set_attitude_thrust_vector_target_ned->time_boot_ms, set_attitude_thrust_vector_target_ned->coordinate_frame, set_attitude_thrust_vector_target_ned->type_mask, set_attitude_thrust_vector_target_ned->acc_x, set_attitude_thrust_vector_target_ned->acc_y, set_attitude_thrust_vector_target_ned->acc_z, set_attitude_thrust_vector_target_ned->q_w, set_attitude_thrust_vector_target_ned->q_x, set_attitude_thrust_vector_target_ned->q_y, set_attitude_thrust_vector_target_ned->q_z, set_attitude_thrust_vector_target_ned->roll, set_attitude_thrust_vector_target_ned->pitch, set_attitude_thrust_vector_target_ned->yaw, set_attitude_thrust_vector_target_ned->acc_roll, set_attitude_thrust_vector_target_ned->acc_pitch, set_attitude_thrust_vector_target_ned->acc_yaw);
+    return mavlink_msg_set_attitude_thrust_vector_target_ned_pack_chan(system_id, component_id, chan, msg, set_attitude_thrust_vector_target_ned->time_boot_ms, set_attitude_thrust_vector_target_ned->coordinate_frame, set_attitude_thrust_vector_target_ned->type_mask, set_attitude_thrust_vector_target_ned->acc_x, set_attitude_thrust_vector_target_ned->acc_y, set_attitude_thrust_vector_target_ned->acc_z, set_attitude_thrust_vector_target_ned->q_w, set_attitude_thrust_vector_target_ned->q_x, set_attitude_thrust_vector_target_ned->q_y, set_attitude_thrust_vector_target_ned->q_z, set_attitude_thrust_vector_target_ned->p, set_attitude_thrust_vector_target_ned->q, set_attitude_thrust_vector_target_ned->r, set_attitude_thrust_vector_target_ned->acc_roll, set_attitude_thrust_vector_target_ned->acc_pitch, set_attitude_thrust_vector_target_ned->acc_yaw);
 }
 
 /**
@@ -268,16 +268,16 @@ static inline uint16_t mavlink_msg_set_attitude_thrust_vector_target_ned_encode_
  * @param q_x [1] Quaternion x
  * @param q_y [1] Quaternion y
  * @param q_z [1] Quaternion z
- * @param roll [rad/s] roll in NED frame
- * @param pitch [rad/s] pitch in NED frame
- * @param yaw [rad/s] yaw in NED frame
+ * @param p [rad/s] Angular velocity p
+ * @param q [rad/s] Angular velocity q
+ * @param r [rad/s] Angular velocity r
  * @param acc_roll [rad/s/s] roll acceleration in NED frame
  * @param acc_pitch [rad/s/s] pitch acceleration in NED frame
  * @param acc_yaw [rad/s/s] yaw acceleration in NED frame
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_set_attitude_thrust_vector_target_ned_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t coordinate_frame, uint16_t type_mask, float acc_x, float acc_y, float acc_z, float q_w, float q_x, float q_y, float q_z, float roll, float pitch, float yaw, float acc_roll, float acc_pitch, float acc_yaw)
+static inline void mavlink_msg_set_attitude_thrust_vector_target_ned_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t coordinate_frame, uint16_t type_mask, float acc_x, float acc_y, float acc_z, float q_w, float q_x, float q_y, float q_z, float p, float q, float r, float acc_roll, float acc_pitch, float acc_yaw)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_ATTITUDE_THRUST_VECTOR_TARGET_NED_LEN];
@@ -289,9 +289,9 @@ static inline void mavlink_msg_set_attitude_thrust_vector_target_ned_send(mavlin
     _mav_put_float(buf, 20, q_x);
     _mav_put_float(buf, 24, q_y);
     _mav_put_float(buf, 28, q_z);
-    _mav_put_float(buf, 32, roll);
-    _mav_put_float(buf, 36, pitch);
-    _mav_put_float(buf, 40, yaw);
+    _mav_put_float(buf, 32, p);
+    _mav_put_float(buf, 36, q);
+    _mav_put_float(buf, 40, r);
     _mav_put_float(buf, 44, acc_roll);
     _mav_put_float(buf, 48, acc_pitch);
     _mav_put_float(buf, 52, acc_yaw);
@@ -309,9 +309,9 @@ static inline void mavlink_msg_set_attitude_thrust_vector_target_ned_send(mavlin
     packet.q_x = q_x;
     packet.q_y = q_y;
     packet.q_z = q_z;
-    packet.roll = roll;
-    packet.pitch = pitch;
-    packet.yaw = yaw;
+    packet.p = p;
+    packet.q = q;
+    packet.r = r;
     packet.acc_roll = acc_roll;
     packet.acc_pitch = acc_pitch;
     packet.acc_yaw = acc_yaw;
@@ -330,7 +330,7 @@ static inline void mavlink_msg_set_attitude_thrust_vector_target_ned_send(mavlin
 static inline void mavlink_msg_set_attitude_thrust_vector_target_ned_send_struct(mavlink_channel_t chan, const mavlink_set_attitude_thrust_vector_target_ned_t* set_attitude_thrust_vector_target_ned)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_set_attitude_thrust_vector_target_ned_send(chan, set_attitude_thrust_vector_target_ned->time_boot_ms, set_attitude_thrust_vector_target_ned->coordinate_frame, set_attitude_thrust_vector_target_ned->type_mask, set_attitude_thrust_vector_target_ned->acc_x, set_attitude_thrust_vector_target_ned->acc_y, set_attitude_thrust_vector_target_ned->acc_z, set_attitude_thrust_vector_target_ned->q_w, set_attitude_thrust_vector_target_ned->q_x, set_attitude_thrust_vector_target_ned->q_y, set_attitude_thrust_vector_target_ned->q_z, set_attitude_thrust_vector_target_ned->roll, set_attitude_thrust_vector_target_ned->pitch, set_attitude_thrust_vector_target_ned->yaw, set_attitude_thrust_vector_target_ned->acc_roll, set_attitude_thrust_vector_target_ned->acc_pitch, set_attitude_thrust_vector_target_ned->acc_yaw);
+    mavlink_msg_set_attitude_thrust_vector_target_ned_send(chan, set_attitude_thrust_vector_target_ned->time_boot_ms, set_attitude_thrust_vector_target_ned->coordinate_frame, set_attitude_thrust_vector_target_ned->type_mask, set_attitude_thrust_vector_target_ned->acc_x, set_attitude_thrust_vector_target_ned->acc_y, set_attitude_thrust_vector_target_ned->acc_z, set_attitude_thrust_vector_target_ned->q_w, set_attitude_thrust_vector_target_ned->q_x, set_attitude_thrust_vector_target_ned->q_y, set_attitude_thrust_vector_target_ned->q_z, set_attitude_thrust_vector_target_ned->p, set_attitude_thrust_vector_target_ned->q, set_attitude_thrust_vector_target_ned->r, set_attitude_thrust_vector_target_ned->acc_roll, set_attitude_thrust_vector_target_ned->acc_pitch, set_attitude_thrust_vector_target_ned->acc_yaw);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SET_ATTITUDE_THRUST_VECTOR_TARGET_NED, (const char *)set_attitude_thrust_vector_target_ned, MAVLINK_MSG_ID_SET_ATTITUDE_THRUST_VECTOR_TARGET_NED_MIN_LEN, MAVLINK_MSG_ID_SET_ATTITUDE_THRUST_VECTOR_TARGET_NED_LEN, MAVLINK_MSG_ID_SET_ATTITUDE_THRUST_VECTOR_TARGET_NED_CRC);
 #endif
@@ -344,7 +344,7 @@ static inline void mavlink_msg_set_attitude_thrust_vector_target_ned_send_struct
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_set_attitude_thrust_vector_target_ned_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t time_boot_ms, uint8_t coordinate_frame, uint16_t type_mask, float acc_x, float acc_y, float acc_z, float q_w, float q_x, float q_y, float q_z, float roll, float pitch, float yaw, float acc_roll, float acc_pitch, float acc_yaw)
+static inline void mavlink_msg_set_attitude_thrust_vector_target_ned_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t time_boot_ms, uint8_t coordinate_frame, uint16_t type_mask, float acc_x, float acc_y, float acc_z, float q_w, float q_x, float q_y, float q_z, float p, float q, float r, float acc_roll, float acc_pitch, float acc_yaw)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -356,9 +356,9 @@ static inline void mavlink_msg_set_attitude_thrust_vector_target_ned_send_buf(ma
     _mav_put_float(buf, 20, q_x);
     _mav_put_float(buf, 24, q_y);
     _mav_put_float(buf, 28, q_z);
-    _mav_put_float(buf, 32, roll);
-    _mav_put_float(buf, 36, pitch);
-    _mav_put_float(buf, 40, yaw);
+    _mav_put_float(buf, 32, p);
+    _mav_put_float(buf, 36, q);
+    _mav_put_float(buf, 40, r);
     _mav_put_float(buf, 44, acc_roll);
     _mav_put_float(buf, 48, acc_pitch);
     _mav_put_float(buf, 52, acc_yaw);
@@ -376,9 +376,9 @@ static inline void mavlink_msg_set_attitude_thrust_vector_target_ned_send_buf(ma
     packet->q_x = q_x;
     packet->q_y = q_y;
     packet->q_z = q_z;
-    packet->roll = roll;
-    packet->pitch = pitch;
-    packet->yaw = yaw;
+    packet->p = p;
+    packet->q = q;
+    packet->r = r;
     packet->acc_roll = acc_roll;
     packet->acc_pitch = acc_pitch;
     packet->acc_yaw = acc_yaw;
@@ -496,31 +496,31 @@ static inline float mavlink_msg_set_attitude_thrust_vector_target_ned_get_q_z(co
 }
 
 /**
- * @brief Get field roll from set_attitude_thrust_vector_target_ned message
+ * @brief Get field p from set_attitude_thrust_vector_target_ned message
  *
- * @return [rad/s] roll in NED frame
+ * @return [rad/s] Angular velocity p
  */
-static inline float mavlink_msg_set_attitude_thrust_vector_target_ned_get_roll(const mavlink_message_t* msg)
+static inline float mavlink_msg_set_attitude_thrust_vector_target_ned_get_p(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  32);
 }
 
 /**
- * @brief Get field pitch from set_attitude_thrust_vector_target_ned message
+ * @brief Get field q from set_attitude_thrust_vector_target_ned message
  *
- * @return [rad/s] pitch in NED frame
+ * @return [rad/s] Angular velocity q
  */
-static inline float mavlink_msg_set_attitude_thrust_vector_target_ned_get_pitch(const mavlink_message_t* msg)
+static inline float mavlink_msg_set_attitude_thrust_vector_target_ned_get_q(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  36);
 }
 
 /**
- * @brief Get field yaw from set_attitude_thrust_vector_target_ned message
+ * @brief Get field r from set_attitude_thrust_vector_target_ned message
  *
- * @return [rad/s] yaw in NED frame
+ * @return [rad/s] Angular velocity r
  */
-static inline float mavlink_msg_set_attitude_thrust_vector_target_ned_get_yaw(const mavlink_message_t* msg)
+static inline float mavlink_msg_set_attitude_thrust_vector_target_ned_get_r(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  40);
 }
@@ -572,9 +572,9 @@ static inline void mavlink_msg_set_attitude_thrust_vector_target_ned_decode(cons
     set_attitude_thrust_vector_target_ned->q_x = mavlink_msg_set_attitude_thrust_vector_target_ned_get_q_x(msg);
     set_attitude_thrust_vector_target_ned->q_y = mavlink_msg_set_attitude_thrust_vector_target_ned_get_q_y(msg);
     set_attitude_thrust_vector_target_ned->q_z = mavlink_msg_set_attitude_thrust_vector_target_ned_get_q_z(msg);
-    set_attitude_thrust_vector_target_ned->roll = mavlink_msg_set_attitude_thrust_vector_target_ned_get_roll(msg);
-    set_attitude_thrust_vector_target_ned->pitch = mavlink_msg_set_attitude_thrust_vector_target_ned_get_pitch(msg);
-    set_attitude_thrust_vector_target_ned->yaw = mavlink_msg_set_attitude_thrust_vector_target_ned_get_yaw(msg);
+    set_attitude_thrust_vector_target_ned->p = mavlink_msg_set_attitude_thrust_vector_target_ned_get_p(msg);
+    set_attitude_thrust_vector_target_ned->q = mavlink_msg_set_attitude_thrust_vector_target_ned_get_q(msg);
+    set_attitude_thrust_vector_target_ned->r = mavlink_msg_set_attitude_thrust_vector_target_ned_get_r(msg);
     set_attitude_thrust_vector_target_ned->acc_roll = mavlink_msg_set_attitude_thrust_vector_target_ned_get_acc_roll(msg);
     set_attitude_thrust_vector_target_ned->acc_pitch = mavlink_msg_set_attitude_thrust_vector_target_ned_get_acc_pitch(msg);
     set_attitude_thrust_vector_target_ned->acc_yaw = mavlink_msg_set_attitude_thrust_vector_target_ned_get_acc_yaw(msg);

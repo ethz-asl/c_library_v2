@@ -28,9 +28,9 @@
             <field type="float" name="q_x" units="1">Quaternion x</field>
             <field type="float" name="q_y" units="1">Quaternion y</field>
             <field type="float" name="q_z" units="1">Quaternion z</field>
-            <field type="float" name="roll" units="rad/s">roll in NED frame</field>
-            <field type="float" name="pitch" units="rad/s">pitch in NED frame</field>
-            <field type="float" name="yaw" units="rad/s">yaw in NED frame</field>
+            <field type="float" name="p" units="rad/s">Angular velocity p</field>
+            <field type="float" name="q" units="rad/s">Angular velocity q</field>
+            <field type="float" name="r" units="rad/s">Angular velocity r</field>
             <field type="float" name="acc_roll" units="rad/s/s">roll acceleration in NED frame</field>
             <field type="float" name="acc_pitch" units="rad/s/s">pitch acceleration in NED frame</field>
             <field type="float" name="acc_yaw" units="rad/s/s">yaw acceleration in NED frame</field>
