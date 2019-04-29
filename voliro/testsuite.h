@@ -267,12 +267,68 @@ static void mavlink_test_set_allocation_matrix(uint8_t system_id, uint8_t compon
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
 
+static void mavlink_test_set_tiltrotor_actuator_commands(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_set_tiltrotor_actuator_commands_t packet_in = {
+        963497464,{ 45.0, 46.0, 47.0, 48.0, 49.0, 50.0, 51.0, 52.0, 53.0, 54.0, 55.0, 56.0, 57.0, 58.0, 59.0, 60.0, 61.0, 62.0 }
+    };
+    mavlink_set_tiltrotor_actuator_commands_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.time_boot_ms = packet_in.time_boot_ms;
+        
+        mav_array_memcpy(packet1.u, packet_in.u, sizeof(float)*18);
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_set_tiltrotor_actuator_commands_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_set_tiltrotor_actuator_commands_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_set_tiltrotor_actuator_commands_pack(system_id, component_id, &msg , packet1.time_boot_ms , packet1.u );
+    mavlink_msg_set_tiltrotor_actuator_commands_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_set_tiltrotor_actuator_commands_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.time_boot_ms , packet1.u );
+    mavlink_msg_set_tiltrotor_actuator_commands_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_set_tiltrotor_actuator_commands_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_set_tiltrotor_actuator_commands_send(MAVLINK_COMM_1 , packet1.time_boot_ms , packet1.u );
+    mavlink_msg_set_tiltrotor_actuator_commands_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+}
+
 static void mavlink_test_voliro(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
     mavlink_test_set_wrench_target_body_ned(system_id, component_id, last_msg);
     mavlink_test_set_attitude_thrust_vector_target_ned(system_id, component_id, last_msg);
     mavlink_test_set_rotor_tilt_target(system_id, component_id, last_msg);
     mavlink_test_set_allocation_matrix(system_id, component_id, last_msg);
+    mavlink_test_set_tiltrotor_actuator_commands(system_id, component_id, last_msg);
 }
 
 #ifdef __cplusplus

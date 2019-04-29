@@ -46,5 +46,10 @@
             <field type="float[36]" name="allocation_matrix" units="1">Allocation matrix expressed in a vector.</field>
             <field type="float[6]" name="tilt_angles" units="rad">Tilt angles.</field>
       </message>
+      <message id="98" name="SET_TILTROTOR_ACTUATOR_COMMANDS">
+            <description>For overactuated vehicles. Sets actuator commands for tilt motors and prop motors.</description>
+            <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
+            <field type="float[18]" name="u" units="rad">Commanded tiltrotor motor inputs.</field>
+      </message>
   </messages>
 </mavlink>
