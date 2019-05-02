@@ -279,13 +279,14 @@ static void mavlink_test_set_tiltrotor_actuator_commands(uint8_t system_id, uint
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_set_tiltrotor_actuator_commands_t packet_in = {
-        963497464,{ 45.0, 46.0, 47.0, 48.0, 49.0, 50.0, 51.0, 52.0, 53.0, 54.0, 55.0, 56.0, 57.0, 58.0, 59.0, 60.0, 61.0, 62.0 }
+        963497464,{ 45.0, 46.0, 47.0, 48.0, 49.0, 50.0 },{ 213.0, 214.0, 215.0, 216.0, 217.0, 218.0, 219.0, 220.0, 221.0, 222.0, 223.0, 224.0 }
     };
     mavlink_set_tiltrotor_actuator_commands_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
         packet1.time_boot_ms = packet_in.time_boot_ms;
         
-        mav_array_memcpy(packet1.u, packet_in.u, sizeof(float)*18);
+        mav_array_memcpy(packet1.u_tiltangles, packet_in.u_tiltangles, sizeof(float)*6);
+        mav_array_memcpy(packet1.u_rotors, packet_in.u_rotors, sizeof(float)*12);
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
         if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
@@ -299,12 +300,12 @@ static void mavlink_test_set_tiltrotor_actuator_commands(uint8_t system_id, uint
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_set_tiltrotor_actuator_commands_pack(system_id, component_id, &msg , packet1.time_boot_ms , packet1.u );
+    mavlink_msg_set_tiltrotor_actuator_commands_pack(system_id, component_id, &msg , packet1.time_boot_ms , packet1.u_tiltangles , packet1.u_rotors );
     mavlink_msg_set_tiltrotor_actuator_commands_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_set_tiltrotor_actuator_commands_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.time_boot_ms , packet1.u );
+    mavlink_msg_set_tiltrotor_actuator_commands_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.time_boot_ms , packet1.u_tiltangles , packet1.u_rotors );
     mavlink_msg_set_tiltrotor_actuator_commands_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -317,7 +318,7 @@ static void mavlink_test_set_tiltrotor_actuator_commands(uint8_t system_id, uint
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_set_tiltrotor_actuator_commands_send(MAVLINK_COMM_1 , packet1.time_boot_ms , packet1.u );
+    mavlink_msg_set_tiltrotor_actuator_commands_send(MAVLINK_COMM_1 , packet1.time_boot_ms , packet1.u_tiltangles , packet1.u_rotors );
     mavlink_msg_set_tiltrotor_actuator_commands_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }

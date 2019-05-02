@@ -49,7 +49,8 @@
       <message id="98" name="SET_TILTROTOR_ACTUATOR_COMMANDS">
             <description>For overactuated vehicles. Sets actuator commands for tilt motors and prop motors.</description>
             <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
-            <field type="float[18]" name="u" units="rad">Commanded tiltrotor motor inputs.</field>
+            <field type="float[6]" name="u_tiltangles" units="rad">Commanded tilt angles.</field>
+            <field type="float[12]" name="u_rotors" units="rad">Commanded rotor speeds.</field>
       </message>
   </messages>
 </mavlink>
