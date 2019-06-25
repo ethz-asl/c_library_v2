@@ -50,7 +50,7 @@
             <description>For overactuated vehicles. Sets actuator commands for tilt motors and prop motors.</description>
             <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
             <field type="float[6]" name="u_tiltangles" units="rad">Commanded tilt angles.</field>
-            <field type="float[12]" name="u_rotors" units="rad">Commanded rotor speeds.</field>
+            <field type="uint16_t[12]" name="u_rotors" units="rad">Commanded rotor speeds.</field>
       </message>
   </messages>
 </mavlink>

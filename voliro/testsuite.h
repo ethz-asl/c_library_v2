@@ -279,14 +279,14 @@ static void mavlink_test_set_tiltrotor_actuator_commands(uint8_t system_id, uint
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_set_tiltrotor_actuator_commands_t packet_in = {
-        963497464,{ 45.0, 46.0, 47.0, 48.0, 49.0, 50.0 },{ 213.0, 214.0, 215.0, 216.0, 217.0, 218.0, 219.0, 220.0, 221.0, 222.0, 223.0, 224.0 }
+        963497464,{ 45.0, 46.0, 47.0, 48.0, 49.0, 50.0 },{ 18691, 18692, 18693, 18694, 18695, 18696, 18697, 18698, 18699, 18700, 18701, 18702 }
     };
     mavlink_set_tiltrotor_actuator_commands_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
         packet1.time_boot_ms = packet_in.time_boot_ms;
         
         mav_array_memcpy(packet1.u_tiltangles, packet_in.u_tiltangles, sizeof(float)*6);
-        mav_array_memcpy(packet1.u_rotors, packet_in.u_rotors, sizeof(float)*12);
+        mav_array_memcpy(packet1.u_rotors, packet_in.u_rotors, sizeof(uint16_t)*12);
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
         if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {

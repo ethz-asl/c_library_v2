@@ -7,16 +7,16 @@ MAVPACKED(
 typedef struct __mavlink_set_tiltrotor_actuator_commands_t {
  uint32_t time_boot_ms; /*< [ms] Timestamp (time since system boot).*/
  float u_tiltangles[6]; /*< [rad] Commanded tilt angles.*/
- float u_rotors[12]; /*< [rad] Commanded rotor speeds.*/
+ uint16_t u_rotors[12]; /*< [rad] Commanded rotor speeds.*/
 }) mavlink_set_tiltrotor_actuator_commands_t;
 
-#define MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_LEN 76
-#define MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_MIN_LEN 76
-#define MAVLINK_MSG_ID_98_LEN 76
-#define MAVLINK_MSG_ID_98_MIN_LEN 76
+#define MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_LEN 52
+#define MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_MIN_LEN 52
+#define MAVLINK_MSG_ID_98_LEN 52
+#define MAVLINK_MSG_ID_98_MIN_LEN 52
 
-#define MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_CRC 247
-#define MAVLINK_MSG_ID_98_CRC 247
+#define MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_CRC 41
+#define MAVLINK_MSG_ID_98_CRC 41
 
 #define MAVLINK_MSG_SET_TILTROTOR_ACTUATOR_COMMANDS_FIELD_U_TILTANGLES_LEN 6
 #define MAVLINK_MSG_SET_TILTROTOR_ACTUATOR_COMMANDS_FIELD_U_ROTORS_LEN 12
@@ -28,7 +28,7 @@ typedef struct __mavlink_set_tiltrotor_actuator_commands_t {
     3, \
     {  { "time_boot_ms", NULL, MAVLINK_TYPE_UINT32_T, 0, 0, offsetof(mavlink_set_tiltrotor_actuator_commands_t, time_boot_ms) }, \
          { "u_tiltangles", NULL, MAVLINK_TYPE_FLOAT, 6, 4, offsetof(mavlink_set_tiltrotor_actuator_commands_t, u_tiltangles) }, \
-         { "u_rotors", NULL, MAVLINK_TYPE_FLOAT, 12, 28, offsetof(mavlink_set_tiltrotor_actuator_commands_t, u_rotors) }, \
+         { "u_rotors", NULL, MAVLINK_TYPE_UINT16_T, 12, 28, offsetof(mavlink_set_tiltrotor_actuator_commands_t, u_rotors) }, \
          } \
 }
 #else
@@ -37,7 +37,7 @@ typedef struct __mavlink_set_tiltrotor_actuator_commands_t {
     3, \
     {  { "time_boot_ms", NULL, MAVLINK_TYPE_UINT32_T, 0, 0, offsetof(mavlink_set_tiltrotor_actuator_commands_t, time_boot_ms) }, \
          { "u_tiltangles", NULL, MAVLINK_TYPE_FLOAT, 6, 4, offsetof(mavlink_set_tiltrotor_actuator_commands_t, u_tiltangles) }, \
-         { "u_rotors", NULL, MAVLINK_TYPE_FLOAT, 12, 28, offsetof(mavlink_set_tiltrotor_actuator_commands_t, u_rotors) }, \
+         { "u_rotors", NULL, MAVLINK_TYPE_UINT16_T, 12, 28, offsetof(mavlink_set_tiltrotor_actuator_commands_t, u_rotors) }, \
          } \
 }
 #endif
@@ -54,19 +54,19 @@ typedef struct __mavlink_set_tiltrotor_actuator_commands_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_set_tiltrotor_actuator_commands_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint32_t time_boot_ms, const float *u_tiltangles, const float *u_rotors)
+                               uint32_t time_boot_ms, const float *u_tiltangles, const uint16_t *u_rotors)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_LEN];
     _mav_put_uint32_t(buf, 0, time_boot_ms);
     _mav_put_float_array(buf, 4, u_tiltangles, 6);
-    _mav_put_float_array(buf, 28, u_rotors, 12);
+    _mav_put_uint16_t_array(buf, 28, u_rotors, 12);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_LEN);
 #else
     mavlink_set_tiltrotor_actuator_commands_t packet;
     packet.time_boot_ms = time_boot_ms;
     mav_array_memcpy(packet.u_tiltangles, u_tiltangles, sizeof(float)*6);
-    mav_array_memcpy(packet.u_rotors, u_rotors, sizeof(float)*12);
+    mav_array_memcpy(packet.u_rotors, u_rotors, sizeof(uint16_t)*12);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_LEN);
 #endif
 
@@ -87,19 +87,19 @@ static inline uint16_t mavlink_msg_set_tiltrotor_actuator_commands_pack(uint8_t 
  */
 static inline uint16_t mavlink_msg_set_tiltrotor_actuator_commands_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint32_t time_boot_ms,const float *u_tiltangles,const float *u_rotors)
+                                   uint32_t time_boot_ms,const float *u_tiltangles,const uint16_t *u_rotors)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_LEN];
     _mav_put_uint32_t(buf, 0, time_boot_ms);
     _mav_put_float_array(buf, 4, u_tiltangles, 6);
-    _mav_put_float_array(buf, 28, u_rotors, 12);
+    _mav_put_uint16_t_array(buf, 28, u_rotors, 12);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_LEN);
 #else
     mavlink_set_tiltrotor_actuator_commands_t packet;
     packet.time_boot_ms = time_boot_ms;
     mav_array_memcpy(packet.u_tiltangles, u_tiltangles, sizeof(float)*6);
-    mav_array_memcpy(packet.u_rotors, u_rotors, sizeof(float)*12);
+    mav_array_memcpy(packet.u_rotors, u_rotors, sizeof(uint16_t)*12);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_LEN);
 #endif
 
@@ -144,19 +144,19 @@ static inline uint16_t mavlink_msg_set_tiltrotor_actuator_commands_encode_chan(u
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_set_tiltrotor_actuator_commands_send(mavlink_channel_t chan, uint32_t time_boot_ms, const float *u_tiltangles, const float *u_rotors)
+static inline void mavlink_msg_set_tiltrotor_actuator_commands_send(mavlink_channel_t chan, uint32_t time_boot_ms, const float *u_tiltangles, const uint16_t *u_rotors)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_LEN];
     _mav_put_uint32_t(buf, 0, time_boot_ms);
     _mav_put_float_array(buf, 4, u_tiltangles, 6);
-    _mav_put_float_array(buf, 28, u_rotors, 12);
+    _mav_put_uint16_t_array(buf, 28, u_rotors, 12);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS, buf, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_MIN_LEN, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_LEN, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_CRC);
 #else
     mavlink_set_tiltrotor_actuator_commands_t packet;
     packet.time_boot_ms = time_boot_ms;
     mav_array_memcpy(packet.u_tiltangles, u_tiltangles, sizeof(float)*6);
-    mav_array_memcpy(packet.u_rotors, u_rotors, sizeof(float)*12);
+    mav_array_memcpy(packet.u_rotors, u_rotors, sizeof(uint16_t)*12);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS, (const char *)&packet, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_MIN_LEN, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_LEN, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_CRC);
 #endif
 }
@@ -183,19 +183,19 @@ static inline void mavlink_msg_set_tiltrotor_actuator_commands_send_struct(mavli
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_set_tiltrotor_actuator_commands_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t time_boot_ms, const float *u_tiltangles, const float *u_rotors)
+static inline void mavlink_msg_set_tiltrotor_actuator_commands_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t time_boot_ms, const float *u_tiltangles, const uint16_t *u_rotors)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
     _mav_put_uint32_t(buf, 0, time_boot_ms);
     _mav_put_float_array(buf, 4, u_tiltangles, 6);
-    _mav_put_float_array(buf, 28, u_rotors, 12);
+    _mav_put_uint16_t_array(buf, 28, u_rotors, 12);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS, buf, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_MIN_LEN, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_LEN, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_CRC);
 #else
     mavlink_set_tiltrotor_actuator_commands_t *packet = (mavlink_set_tiltrotor_actuator_commands_t *)msgbuf;
     packet->time_boot_ms = time_boot_ms;
     mav_array_memcpy(packet->u_tiltangles, u_tiltangles, sizeof(float)*6);
-    mav_array_memcpy(packet->u_rotors, u_rotors, sizeof(float)*12);
+    mav_array_memcpy(packet->u_rotors, u_rotors, sizeof(uint16_t)*12);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS, (const char *)packet, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_MIN_LEN, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_LEN, MAVLINK_MSG_ID_SET_TILTROTOR_ACTUATOR_COMMANDS_CRC);
 #endif
 }
@@ -231,9 +231,9 @@ static inline uint16_t mavlink_msg_set_tiltrotor_actuator_commands_get_u_tiltang
  *
  * @return [rad] Commanded rotor speeds.
  */
-static inline uint16_t mavlink_msg_set_tiltrotor_actuator_commands_get_u_rotors(const mavlink_message_t* msg, float *u_rotors)
+static inline uint16_t mavlink_msg_set_tiltrotor_actuator_commands_get_u_rotors(const mavlink_message_t* msg, uint16_t *u_rotors)
 {
-    return _MAV_RETURN_float_array(msg, u_rotors, 12,  28);
+    return _MAV_RETURN_uint16_t_array(msg, u_rotors, 12,  28);
 }
 
 /**
