@@ -1,10 +1,10 @@
 /** @file
- *    @brief MAVLink comm protocol testsuite generated from voliro.xml
+ *    @brief MAVLink comm protocol testsuite generated from omav.xml
  *    @see http://qgroundcontrol.org/mavlink/
  */
 #pragma once
-#ifndef VOLIRO_TESTSUITE_H
-#define VOLIRO_TESTSUITE_H
+#ifndef OMAV_TESTSUITE_H
+#define OMAV_TESTSUITE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -13,12 +13,12 @@ extern "C" {
 #ifndef MAVLINK_TEST_ALL
 #define MAVLINK_TEST_ALL
 static void mavlink_test_common(uint8_t, uint8_t, mavlink_message_t *last_msg);
-static void mavlink_test_voliro(uint8_t, uint8_t, mavlink_message_t *last_msg);
+static void mavlink_test_omav(uint8_t, uint8_t, mavlink_message_t *last_msg);
 
 static void mavlink_test_all(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
     mavlink_test_common(system_id, component_id, last_msg);
-    mavlink_test_voliro(system_id, component_id, last_msg);
+    mavlink_test_omav(system_id, component_id, last_msg);
 }
 #endif
 
@@ -323,7 +323,7 @@ static void mavlink_test_set_tiltrotor_actuator_commands(uint8_t system_id, uint
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
 
-static void mavlink_test_voliro(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+static void mavlink_test_omav(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
     mavlink_test_set_wrench_target_body_ned(system_id, component_id, last_msg);
     mavlink_test_set_attitude_thrust_vector_target_ned(system_id, component_id, last_msg);
@@ -335,4 +335,4 @@ static void mavlink_test_voliro(uint8_t system_id, uint8_t component_id, mavlink
 #ifdef __cplusplus
 }
 #endif // __cplusplus
-#endif // VOLIRO_TESTSUITE_H
+#endif // OMAV_TESTSUITE_H

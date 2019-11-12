@@ -1165,7 +1165,11 @@
         <param index="7">Altitude</param>
       </entry>
       <entry value="32" name="MAV_CMD_DO_FOLLOW" hasLocation="false" isDestination="false">
+<<<<<<< HEAD
+        <description>Being following a target</description>
+=======
         <description>Begin following a target</description>
+>>>>>>> upstream/release/melodic/mavlink
         <param index="1" label="System ID" minValue="0" maxValue="255" increment="1">System ID (of the FOLLOW_TARGET beacon). Send 0 to disable follow-me and return to the default position hold mode.</param>
         <param index="2">RESERVED</param>
         <param index="3">RESERVED</param>
@@ -1806,7 +1810,10 @@
       <entry value="400" name="MAV_CMD_COMPONENT_ARM_DISARM" hasLocation="false" isDestination="false">
         <description>Arms / Disarms a component</description>
         <param index="1" label="Arm" minValue="0" maxValue="1" increment="1">0: disarm, 1: arm</param>
+<<<<<<< HEAD
+=======
         <param index="2" label="Force" minValue="0" maxValue="21196" increment="21196">0: arm-disarm unless prevented by safety checks (i.e. when landed), 21196: force arming/disarming (e.g. allow arming to override preflight checks and disarming in flight)</param>
+>>>>>>> upstream/release/melodic/mavlink
       </entry>
       <entry value="410" name="MAV_CMD_GET_HOME_POSITION" hasLocation="false" isDestination="false">
         <description>Request the home position from the vehicle.</description>
@@ -1822,6 +1829,18 @@
         <description>Starts receiver pairing.</description>
         <param index="1" label="Spektrum">0:Spektrum.</param>
         <param index="2" label="RC Type" enum="RC_TYPE">RC type.</param>
+<<<<<<< HEAD
+      </entry>
+      <entry value="510" name="MAV_CMD_GET_MESSAGE_INTERVAL" hasLocation="false" isDestination="false">
+        <description>Request the interval between messages for a particular MAVLink message ID</description>
+        <param index="1" label="Message ID" minValue="0" maxValue="16777215" increment="1">The MAVLink message ID</param>
+      </entry>
+      <entry value="511" name="MAV_CMD_SET_MESSAGE_INTERVAL" hasLocation="false" isDestination="false">
+        <description>Set the interval between messages for a particular MAVLink message ID. This interface replaces REQUEST_DATA_STREAM</description>
+        <param index="1" label="Message ID" minValue="0" maxValue="16777215" increment="1">The MAVLink message ID</param>
+        <param index="2" label="Interval" units="us" minValue="-1" increment="1">The interval between two messages. Set to -1 to disable and 0 to request default rate.</param>
+      </entry>
+=======
       </entry>
       <entry value="510" name="MAV_CMD_GET_MESSAGE_INTERVAL" hasLocation="false" isDestination="false">
         <description>Request the interval between messages for a particular MAVLink message ID. The receiver should ACK the command and then emit its response in a MESSAGE_INTERVAL message.</description>
@@ -1833,11 +1852,15 @@
         <param index="2" label="Interval" units="us" minValue="-1" increment="1">The interval between two messages. Set to -1 to disable and 0 to request default rate.</param>
         <param index="7" label="Response Target" minValue="0" maxValue="2" increment="1">Target address of message stream (if message has target address fields). 0: Flight-stack default (recommended), 1: address of requestor, 2: broadcast.</param>
       </entry>
+>>>>>>> upstream/release/melodic/mavlink
       <entry value="512" name="MAV_CMD_REQUEST_MESSAGE" hasLocation="false" isDestination="false">
         <description>Request the target system(s) emit a single instance of a specified message (i.e. a "one-shot" version of MAV_CMD_SET_MESSAGE_INTERVAL).</description>
         <param index="1" label="Message ID" minValue="0" maxValue="16777215" increment="1">The MAVLink message ID of the requested message.</param>
         <param index="2" label="Index ID" minValue="0" increment="1">Index id (if appropriate). The use of this parameter (if any), must be defined in the requested message.</param>
+<<<<<<< HEAD
+=======
         <param index="7" label="Response Target" minValue="0" maxValue="2" increment="1">Target address for requested message (if message has target address fields). 0: Flight-stack default, 1: address of requestor, 2: broadcast.</param>
+>>>>>>> upstream/release/melodic/mavlink
       </entry>
       <entry value="519" name="MAV_CMD_REQUEST_PROTOCOL_VERSION" hasLocation="false" isDestination="false">
         <description>Request MAVLink protocol version compatibility</description>
@@ -1845,7 +1868,11 @@
         <param index="2">Reserved (all remaining params)</param>
       </entry>
       <entry value="520" name="MAV_CMD_REQUEST_AUTOPILOT_CAPABILITIES" hasLocation="false" isDestination="false">
+<<<<<<< HEAD
+        <description>Request autopilot capabilities</description>
+=======
         <description>Request autopilot capabilities. The receiver should ACK the command and then emit its capabilities in an AUTOPILOT_VERSION message</description>
+>>>>>>> upstream/release/melodic/mavlink
         <param index="1" label="Version">1: Request autopilot version</param>
         <param index="2">Reserved (all remaining params)</param>
       </entry>
@@ -3517,6 +3544,8 @@
         <description>Release parachute.</description>
       </entry>
     </enum>
+<<<<<<< HEAD
+=======
     <enum name="MAV_TUNNEL_PAYLOAD_TYPE">
       <entry value="0" name="MAV_TUNNEL_PAYLOAD_TYPE_UNKNOWN">
         <description>Encoding of payload unknown.</description>
@@ -3813,12 +3842,18 @@
         <description>Format is Modern Music Markup Language (MML): https://en.wikipedia.org/wiki/Music_Macro_Language#Modern_MML.</description>
       </entry>
     </enum>
+>>>>>>> upstream/release/melodic/mavlink
   </enums>
   <messages>
     <message id="0" name="HEARTBEAT">
       <description>The heartbeat message shows that a system or component is present and responding. The type and autopilot fields (along with the message component id), allow the receiving system to treat further messages from this system appropriately (e.g. by laying out the user interface based on the autopilot). This microservice is documented at https://mavlink.io/en/services/heartbeat.html</description>
+<<<<<<< HEAD
+      <field type="uint8_t" name="type" enum="MAV_TYPE">Type of the system (quadrotor, helicopter, etc.). Components use the same type as their associated system.</field>
+      <field type="uint8_t" name="autopilot" enum="MAV_AUTOPILOT">Autopilot type / class.</field>
+=======
       <field type="uint8_t" name="type" enum="MAV_TYPE">Vehicle or component type. For a flight controller component the vehicle type (quadrotor, helicopter, etc.). For other components the component type (e.g. camera, gimbal, etc.). This should be used in preference to component id for identifying the component type.</field>
       <field type="uint8_t" name="autopilot" enum="MAV_AUTOPILOT">Autopilot type / class. Use MAV_AUTOPILOT_INVALID for components that are not flight controllers.</field>
+>>>>>>> upstream/release/melodic/mavlink
       <field type="uint8_t" name="base_mode" enum="MAV_MODE_FLAG" display="bitmask">System mode bitmap.</field>
       <field type="uint32_t" name="custom_mode">A bitfield for use for autopilot-specific flags</field>
       <field type="uint8_t" name="system_status" enum="MAV_STATE">System status flag.</field>
@@ -5674,7 +5709,10 @@
       <field type="float[21]" name="velocity_covariance">Row-major representation of a 6x6 velocity cross-covariance matrix upper right triangle (states: vx, vy, vz, rollspeed, pitchspeed, yawspeed; first six entries are the first ROW, next five entries are the second ROW, etc.). If unknown, assign NaN value to first element in the array.</field>
       <extensions/>
       <field type="uint8_t" name="reset_counter">Estimate reset counter. This should be incremented when the estimate resets in any of the dimensions (position, velocity, attitude, angular speed). This is designed to be used when e.g an external SLAM system detects a loop-closure and the estimate jumps.</field>
+<<<<<<< HEAD
+=======
       <field type="uint8_t" name="estimator_type" enum="MAV_ESTIMATOR_TYPE">Type of estimator that is providing the odometry.</field>
+>>>>>>> upstream/release/melodic/mavlink
     </message>
     <message id="332" name="TRAJECTORY_REPRESENTATION_WAYPOINTS">
       <wip/>
@@ -5805,12 +5843,15 @@
       <field type="uint16_t" default="0" name="cell_offset">The cell number of the first index in the 'voltages' array field. Using this field allows you to specify cell voltages for batteries with more than 16 cells.</field>
       <field type="uint16_t[16]" name="voltages" units="mV">Individual cell voltages. Batteries with more 16 cells can use the cell_offset field to specify the cell offset for the array specified in the current message . Index values above the valid cell count for this battery should have the UINT16_MAX value.</field>
     </message>
+<<<<<<< HEAD
+=======
     <message id="375" name="ACTUATOR_OUTPUT_STATUS">
       <description>The raw values of the actuator outputs (e.g. on Pixhawk, from MAIN, AUX ports). This message supersedes SERVO_OUTPUT_RAW.</description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (since system boot).</field>
       <field type="uint32_t" name="active" display="bitmask">Active outputs</field>
       <field type="float[32]" name="actuator">Servo / motor output array values. Zero values indicate unused channels.</field>
     </message>
+>>>>>>> upstream/release/melodic/mavlink
     <message id="380" name="TIME_ESTIMATE_TO_TARGET">
       <wip/>
       <!-- This message is work-in-progress it can therefore change, and should NOT be used in stable production environments -->
@@ -5821,6 +5862,8 @@
       <field type="int32_t" name="mission_end" units="s">Estimated time for completing the current mission. -1 means no mission active and/or no estimate available.</field>
       <field type="int32_t" name="commanded_action" units="s">Estimated time for completing the current commanded action (i.e. Go To, Takeoff, Land, etc.). -1 means no action active and/or no estimate available.</field>
     </message>
+<<<<<<< HEAD
+=======
     <message id="385" name="TUNNEL">
       <wip/>
       <!-- This message is work-in-progress it can therefore change, and should NOT be used in stable production environments -->
@@ -5873,6 +5916,7 @@
       <field type="uint8_t" name="target_component">Component ID</field>
       <field type="uint32_t" name="format" enum="TUNE_FORMAT" display="bitmask">Bitfield of supported tune formats.</field>
     </message>
+>>>>>>> upstream/release/melodic/mavlink
     <!-- Rover specific messages -->
     <message id="9000" name="WHEEL_DISTANCE">
       <description>Cumulative distance traveled for each reported wheel.</description>

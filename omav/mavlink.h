@@ -1,5 +1,5 @@
 /** @file
- *  @brief MAVLink comm protocol built from voliro.xml
+ *  @brief MAVLink comm protocol built from omav.xml
  *  @see http://mavlink.org
  */
 #pragma once
@@ -29,6 +29,6 @@
 #endif
 
 #include "version.h"
-#include "voliro.h"
+#include "omav.h"
 
 #endif // MAVLINK_H
