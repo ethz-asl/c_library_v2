@@ -4,8 +4,8 @@
   <version>3</version>
   <dialect>0</dialect>
   <messages>
-      <message id="94" name="SET_WRENCH_TARGET_BODY_NED">
-            <description>For overactuated vehicles. Contains wrench target (force and torque vectors in the body frame).</description>
+      <message id="94" name="SET_ACCEL_TARGET_BODY_NED">
+            <description>For overactuated vehicles. Contains acceleration target (linear and angular acceleration vectors in the body frame).</description>
             <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
             <field type="uint8_t" name="coordinate_frame" enum="MAV_FRAME">Valid options are: MAV_FRAME_LOCAL_NED = 1, MAV_FRAME_LOCAL_OFFSET_NED = 7, MAV_FRAME_BODY_NED = 8, MAV_FRAME_BODY_OFFSET_NED = 9</field>
             <field type="uint16_t" name="type_mask" enum="POSITION_TARGET_TYPEMASK" display="bitmask">Bitmap to indicate which dimensions should be ignored by the vehicle.</field>
@@ -51,6 +51,18 @@
             <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
             <field type="float[6]" name="u_tiltangles" units="rad">Commanded tilt angles.</field>
             <field type="uint16_t[12]" name="u_rotors" units="rad">Commanded rotor speeds.</field>
+      </message>
+      <message id="99" name="SET_WRENCH_TARGET_BODY_NED">
+            <description>For overactuated vehicles. Contains wrench target (force and torque vectors in the body frame).</description>
+            <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
+            <field type="uint8_t" name="coordinate_frame" enum="MAV_FRAME">Valid options are: MAV_FRAME_LOCAL_NED = 1, MAV_FRAME_LOCAL_OFFSET_NED = 7, MAV_FRAME_BODY_NED = 8, MAV_FRAME_BODY_OFFSET_NED = 9</field>
+            <field type="uint16_t" name="type_mask" enum="POSITION_TARGET_TYPEMASK" display="bitmask">Bitmap to indicate which dimensions should be ignored by the vehicle.</field>
+            <field type="float" name="force_x" units="N">X force in NED frame</field>
+            <field type="float" name="force_y" units="N">Y force in NED frame</field>
+            <field type="float" name="force_z" units="N">Z force in NED frame</field>
+            <field type="float" name="torque_x" units="Nm">X torque in NED frame</field>
+            <field type="float" name="torque_y" units="Nm">Y torque in NED frame</field>
+            <field type="float" name="torque_z" units="Nm">Z torque in NED frame</field>
       </message>
   </messages>
 </mavlink>
